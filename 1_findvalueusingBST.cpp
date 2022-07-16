@@ -24,7 +24,7 @@ binarytreenode<int> * takeinput()
         {
             binarytreenode<int> *child=new binarytreenode<int>(left_child_data);
             pendingNode.push(child);
-            root->left=child;
+            front->left=child;
         }
         int right_child_data;
         cout<<"Enter right CHild of "<<front->data<<endl;
@@ -33,7 +33,7 @@ binarytreenode<int> * takeinput()
         {
             binarytreenode<int>* child=new binarytreenode<int>(right_child_data);
             pendingNode.push(child);
-            root->right=child;
+            front->right=child;
         }
    }
    return root;
@@ -66,12 +66,26 @@ void printtree(binarytreenode<int> * root)
     }
 }
 
+void findNode(binarytreenode<int>* root, int key){
+
+    if(root==NULL)
+    {cout<<"key not found";
+    return ;
+    }
+    cout<<root->data<<" ";
+    if(root->data==key){
+    cout<<"key find "<<key<<endl;
+    return;
+    }
+    (key>(root->data))? findNode(root->right,key) : findNode(root->left,key);
+
+}
 
 int main()
 {
 
 binarytreenode<int>* root=takeinput();
 printtree(root);
-
+findNode(root,4);
     return 0;
 }
