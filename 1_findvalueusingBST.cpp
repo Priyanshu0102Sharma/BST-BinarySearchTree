@@ -149,17 +149,58 @@ bool isbst(binarytreenode<int>* root, int minimum=INT_MIN, int maximum=INT_MAX)
 }
 
 
+// root to node path
+
+vector<int>* getroottonodepath(binarytreenode<int>* root, int data)
+{
+    if(root==NULL)
+    return NULL;
+
+if(root->data==data){
+    vector<int>* output=new vector<int>();
+    output->push_back(root->data);
+    return output;
+}
+
+vector<int>*leftoutput=getroottonodepath(root->left,data);
+if(leftoutput!=NULL)
+{
+    leftoutput->push_back(root->data);
+    return leftoutput;
+}
+vector<int>*rightoutput=getroottonodepath(root->right, data);
+    if(rightoutput!=NULL)
+{
+    rightoutput->push_back(root->data);
+    return rightoutput;
+}
+else
+return NULL;
+
+
+}
+
+
 // root 3 2 5 -1 -1 4 7 -1 -1 -1 -1
 int main()
 {
 
-// binarytreenode<int>* root=takeinput();
-// printtree(root);
-// // findNode(root,4);
-// cout<<endl;
-// cout<<isbst(root);
-int a[]={1,2,3,4,5,6,7};
-binarytreenode<int>* root=makebst(a, 0, 6);
+binarytreenode<int>* root=takeinput();
 printtree(root);
+// findNode(root,4);
+cout<<endl;
+// cout<<isbst(root);
+// int a[]={1,2,3,4,5,6,7};
+// binarytreenode<int>* root=makebst(a, 0, 6);
+// printtree(root);
+ vector<int>*output=getroottonodepath(root, 7);
+
+ cout<<output->size()<<" "<<endl;
+ for(int i=0;i<output->size();i++)
+ {
+    cout<<output->at(i)<<" ";
+ }
+ cout<<endl;
+ 
     return 0;
 }
