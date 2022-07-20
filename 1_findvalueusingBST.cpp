@@ -112,7 +112,26 @@ int leftmax=maximum(root->left);
 int rightmin=minimum(root->right);
 return (root->data>leftmax) && (root->data<rightmin) && (isBST(root->left)) && (isBST(root->right));
 
+
 }
+
+// function to tell bst or not root to bottom approach
+
+bool isbst(binarytreenode<int>* root, int minimum=INT_MIN, int maximum=INT_MAX)
+{
+
+    if(root==NULL)
+    return true;
+
+    if(root->data<minimum || root->data>maximum)
+    return false;
+
+    bool leftok=isbst(root->left, minimum, root->data-1);
+    bool rightok=isbst(root->right, root->data, maximum);
+    return leftok && rightok;
+}
+
+
 // root 3 2 5 -1 -1 4 7 -1 -1 -1 -1
 int main()
 {
@@ -121,6 +140,6 @@ binarytreenode<int>* root=takeinput();
 printtree(root);
 // findNode(root,4);
 cout<<endl;
-cout<<isBST(root);
+cout<<isbst(root);
     return 0;
 }
