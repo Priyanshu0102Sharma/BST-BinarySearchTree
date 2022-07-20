@@ -115,6 +115,23 @@ return (root->data>leftmax) && (root->data<rightmin) && (isBST(root->left)) && (
 
 }
 
+
+// function to make bst from given sorted array:
+
+binarytreenode<int>* makebst(int a[], int si, int li)
+{
+    if(si>li)
+    return NULL;
+
+int mid=(li+si)/2;
+binarytreenode<int> *root=new binarytreenode<int>(a[mid]);
+root->left=makebst(a, si, mid-1);
+root->right=makebst(a, mid+1, li);
+return root;
+
+}
+
+
 // function to tell bst or not root to bottom approach
 
 bool isbst(binarytreenode<int>* root, int minimum=INT_MIN, int maximum=INT_MAX)
@@ -136,10 +153,13 @@ bool isbst(binarytreenode<int>* root, int minimum=INT_MIN, int maximum=INT_MAX)
 int main()
 {
 
-binarytreenode<int>* root=takeinput();
+// binarytreenode<int>* root=takeinput();
+// printtree(root);
+// // findNode(root,4);
+// cout<<endl;
+// cout<<isbst(root);
+int a[]={1,2,3,4,5,6,7};
+binarytreenode<int>* root=makebst(a, 0, 6);
 printtree(root);
-// findNode(root,4);
-cout<<endl;
-cout<<isbst(root);
     return 0;
 }
